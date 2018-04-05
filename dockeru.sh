@@ -6,7 +6,7 @@ sudo apt-get update
 sudo apt-get install -y curl
 curl -fsSL get.docker.com -o get-docker.sh
 sudo sh ./get-docker.sh
-sudo usermod -aG docker vagrant
+sudo rm ./get-docker.sh
 #Install docker machine
 curl -L "https://github.com/docker/machine/releases/download/v$machineVer/docker-machine-`uname -s`-`uname -m`" >/tmp/docker-machine
 chmod +x /tmp/docker-machine
@@ -16,6 +16,17 @@ sudo curl -L "https://github.com/docker/compose/releases/download/$composeVer/do
 sudo chmod +x /usr/local/bin/docker-compose
 sudo docker container run -d --tty --name ubuntu ubuntu
 sudo docker container rm -f ubuntu
-echo "alias ubuntu='docker container run -d --tty --name ubuntu ubuntu'" >> ~/.bashrc
-echo "alias attach_ubuntu='docker container exec -it ubuntu /bin/bash'" >> ~/.bashrc
-echo "alias rm_ubuntu='docker container rm -f ubuntu'" >> ~/.bashrc
+run="alias ubuntu='docker container run -d --tty --name ubuntu ubuntu'"
+attach="alias attach_ubuntu='docker container exec -it ubuntu /bin/bash'"
+remove="alias rm_ubuntu='docker container rm -f ubuntu'"
+if [ -d /home/al ]; then
+	echo $run >> /home/al/.bashrc
+	echo $attach >> /home/al/.bashrc
+	echo $remove >> /home/al/.bashrc
+	sudo usermod -aG docker al
+else
+	echo $run >> ~/.bashrc
+	echo $attach >> ~/.bashrc
+	echo $remove >> ~/.bashrc
+	sudo usermod -aG docker $(whoami)
+fi
