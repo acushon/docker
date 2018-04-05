@@ -4,7 +4,7 @@ if [ "$EUID" -ne 0 ]
   then echo "Please run with su permissions. e.g. sudo ./setup.sh"
   exit
 fi
-apt-get update
+#apt-get update
 apt-get install -y samba curl git
 # Add your user account 
 adduser al --gecos "" --disabled-password --force-badname
