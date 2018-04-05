@@ -20,6 +20,9 @@ run="alias ubuntu='docker container run -d --tty --name ubuntu ubuntu'"
 attach="alias attach_ubuntu='docker container exec -it ubuntu /bin/bash'"
 remove="alias rm_ubuntu='docker container rm -f ubuntu'"
 if [ -d /home/al ]; then
+	mkdir /home/al/data
+	cp ./docker-compose.yml /home/al/.
+	chown -R al:al /home/al
 	echo $run >> /home/al/.bashrc
 	echo $attach >> /home/al/.bashrc
 	echo $remove >> /home/al/.bashrc
